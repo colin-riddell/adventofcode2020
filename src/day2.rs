@@ -6,9 +6,6 @@ struct Line {
 }
 
 impl Line {
-    // pub fn new(range_min: u32, range_max: u32, letter: char, password: String) -> Self {
-    //     return Self {range_min: range_min, range_max: range_max, letter: letter, password: password };
-    // }
 
     fn new(line: &str) -> Line {
         let split_line : Vec<&str> =  line.split(": ").collect();
@@ -26,14 +23,17 @@ impl Line {
     }
 
     pub fn is_valid_part_two(&self) -> bool {
+                // if it doesn't matche letter return false
+        // get char at pos range_max
+        // if it doesn't match return false
+
+
         // get char at pos range_min
         let password_len :usize = self.password.len();
         if self.range_min as usize > password_len || self.range_max as usize > password_len{
             return false
         }
-        //  0  1  2  3
-        // [a, b, c, d]
-        //  1  2  3   4
+
         let char_at_min : char = self.password.chars().nth(self.range_min as usize -1).unwrap();
         println!("char at min (position {} ) is: {} comparing to {} on password: {} ", self.range_min, char_at_min, self.letter, self.password);
         if char_at_min != self.letter {
@@ -42,17 +42,14 @@ impl Line {
 
         let char_at_max : char = self.password.chars().nth(self.range_max as usize -1).unwrap();
         println!("char at max (position {} ) is: {} comparing to {} on password: {}  ", self.range_max, char_at_max, self.letter, self.password);
-
         if char_at_max != self.letter {
             return false;
         }
-        // if it doesn't matche letter return false
-        // get char at pos range_max
-        // if it doesn't match return false
 
         return true;
     }
 
+    // is valid for part 1
     pub fn is_valid(&self) -> bool {
         // count the number of `letter` in the password
        let chars : Vec<char> =  self.password.chars().filter(|c| self.letter == *c).collect();
